@@ -39,4 +39,26 @@ class Patient
    Icu.all.select { |i| i.nurse.expertise == expertise }
  end
 
+ def primary_docs
+  Appointment.all.select do |v|
+    v.primarydoc == self
+  end
+ end
+
+ def names 
+  primary_docs.map do |v|
+    v.name
+  end
+end
+
+def expertise
+  primary_docs.map do |v|
+    v.expertise
+  end
+end
+
+def new_appointment
+  appointment4 = Appointment.new(self,"Dr.P", "Dec 15th, 2020")
+end
+
  end
