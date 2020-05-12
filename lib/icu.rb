@@ -19,7 +19,7 @@ class Icu
 
   def self.get_icu_with_ventilator_average
    Icu.all.select { |i| i.ventilatior == true }.count /  Icu.all.count.to_f
-
+   
   end
 
   def get_patient_condition

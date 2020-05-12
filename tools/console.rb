@@ -12,6 +12,8 @@ icu1 = Icu.new("Adult", ventilatior=false, nurse1, patient1)
 icu2 = Icu.new("Pediatric", ventilatior=true, nurse1, patient2)
 icu3 = Icu.new("Pediatric", ventilatior=true, nurse1, patient2)
 
+car1 = Car.new("Brand", "Model", nurse1)
+
 binding.pry
 
 l

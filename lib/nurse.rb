@@ -1,4 +1,5 @@
 require 'pry'
+# require_relative '../lib/car.rb'
 
 class Nurse
   @@all = []
@@ -35,6 +36,10 @@ class Nurse
 
   def get_patients_names
     self.patients.map { |p| p.name }
+  end
+
+  def cars
+    Car.all.select { |c| c.owner == self }
   end
 
  end
