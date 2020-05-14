@@ -2,52 +2,25 @@ require 'pry'
 
 class Patient < ActiveRecord::Base
   has_many :icus
+  has_many :appointments
   has_many :nurses, through: :icus
+  has_many :doctors, through: :appointments
 
   def self.average_age
    Patient.all.map { |p| p.age }.sum / Patient.all.count
   end
 
-  def nurses
-    self.icus.map{ |i| i.nurse }
-  end
-
-  def icus
-   Icu.all.select{|icu| icu.patient == self}
- end
 
  def find_icu_with_ventilator
-  Icu.all.select{ |icu| icu.ventilatior == true}
+  Icu.all.select{ |icu| icu.ventilator == true}
  end
 
- def get_icu(name, ventilatior, nurse)
-   Icu.new(name, ventilatior, nurse, self)
+ def get_icu(name, ventilator, nurse)
+   Icu.create(name: name, ventilator: ventilator, nurse_id: nurse.id, patient_id: self.id)
  end
 
  def get_nurses_by_expertise(expertise)
-   Icu.all.select { |i| i.nurse.expertise == expertise }
+   self.icus[0].get_nurse_by_expertise(expertise)
  end
-
- def primary_docs
-  Appointment.all.select do |v|
-    v.primarydoc == self
-  end
- end
-
- def names 
-  primary_docs.map do |v|
-    v.name
-  end
-end
-
-def expertise
-  primary_docs.map do |v|
-    v.expertise
-  end
-end
-
-def new_appointment
-  appointment4 = Appointment.new(self,"Dr.P", "Dec 15th, 2020")
-end
 
  end

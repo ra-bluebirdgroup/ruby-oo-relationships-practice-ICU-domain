@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 7) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.integer "patient_id"
+    t.integer "doctor_id"
+    t.date "date"
+  end
+
+  create_table "cars", force: :cascade do |t|
+    t.string "make"
+    t.string "model"
+    t.integer "nurse_id"
+  end
+
+  create_table "doctors", force: :cascade do |t|
+    t.string "name"
+    t.integer "years_experience"
+  end
 
   create_table "icus", force: :cascade do |t|
     t.string "name"
