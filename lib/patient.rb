@@ -1,19 +1,8 @@
 require 'pry'
 
-class Patient
-  @@all = []
-  attr_accessor :name, :age, :condition
-
-  def initialize(name, age, condition)
-   @name = name
-   @condition = condition
-   @age = age
-   Patient.all << self
-  end
-
-  def self.all
-   @@all
-  end
+class Patient < ActiveRecord::Base
+  has_many :icus
+  has_many :nurses, through: :icus
 
   def self.average_age
    Patient.all.map { |p| p.age }.sum / Patient.all.count

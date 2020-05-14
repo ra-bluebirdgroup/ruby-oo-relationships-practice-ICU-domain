@@ -1,19 +1,10 @@
 require 'pry'
-# require_relative '../lib/car.rb'
 
-class Nurse
-  @@all = []
-  attr_accessor :name, :expertise
+class Nurse < ActiveRecord::Base
+  has_many :icus
+  has_many :patients, through: :icus
 
-  def initialize(name, expertise=nil)
-   @name = name
-   @expertise = expertise
-   Nurse.all << self
-  end
-
-  def self.all
-   @@all
-  end
+  has_many :cars
 
   def self.get_most_common_expertise
    all_expertise = Nurse.all.map { |n| n.expertise }
@@ -38,8 +29,5 @@ class Nurse
     self.patients.map { |p| p.name }
   end
 
-  def cars
-    Car.all.select { |c| c.owner == self }
-  end
 
  end
