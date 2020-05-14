@@ -4,8 +4,8 @@ class Icu < ActiveRecord::Base
   belongs_to :nurse
   belongs_to :patient
 
-  def self.get_icu_with_ventilator_average
-   Icu.find_by(ventilator: true)
+  def self.get_icu_with_ventilator_percent
+   Icu.where(ventilator: true).count / Icu.all.count.to_f * 100
   end
 
   def get_patient_condition
