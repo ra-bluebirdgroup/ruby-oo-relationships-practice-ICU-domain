@@ -5,19 +5,19 @@ class Icu < ActiveRecord::Base
   belongs_to :patient
 
   def self.get_icu_with_ventilator_average
-   Icu.all.select { |i| i.ventilatior == true }.count /  Icu.all.count.to_f
+   Icu.find_by(ventilator: true)
   end
 
   def get_patient_condition
    self.patient.condition
   end
 
-  def get_nurse_by_expertise(expertise)
-    Nurse.all.select { |n| n.expertise == expertise}
+  def get_nurse_by_expertise(input)
+    Nurse.where(expertise: input)
   end
 
-  def get_patients_by_condition(condition)
-   Patient.all.select { |p| p.condition == condition}
+  def get_patients_by_condition(input)
+   Patient.where(condition: input)
   end
 
  end
